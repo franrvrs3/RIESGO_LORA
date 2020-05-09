@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="leaflet/leaflet.css">
+    <script type="text/javascript" src="leaflet/leaflet.js"></script>
+    <script src="js/codigo.js" type="text/javascript" ></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bitter:wght@700&family=Frank+Ruhl+Libre:wght@700;900&family=Karla:wght@700&family=Lora:wght@600;700&family=Oswald:wght@600&family=Playfair+Display:ital,wght@1,600;1,800&display=swap" rel="stylesheet">
+    <!-- JQuery -->
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <!-- esri -->
+    <script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+    <!--Bing-->
+    <script src="plugins/bing/layer/tile/Bing.js"></script>
+     <!--PNOA-->
+    <script src="plugins/spainwms/src/leafletspainwms.js"></script>
+    <!-- Mouse Position -->
+    <link rel="stylesheet" href="plugins/mouseposition/src/mouseposition.css">
+     <script src="PLUGINS/MousePosition/src/mouseposition.js"></script>
+    <!--Imprimir -->
+    <script src="plugins/print/dist/bundle.js"></script>
+    <!-- Control de capas -->
+    <script src="plugins/styledlayercontrol/src/styledlayercontrol.js"></script>
+    <link rel="stylesheet" href="plugins/styledlayercontrol/css/styledlayercontrol.css">
+    <!-- Measure -->
+    <script src="plugins/measure/dist/leaflet-measure.es.js"></script>
+    <link rel=stylesheet href="plugins/measure/dist/leaflet-measure.css" />
+    <!--Geocoder-->
+    <script src="plugins/geocoder/controlosmgeocoder.js"></script>
+    <link rel=stylesheet href="plugins/geocoder/controlosmgeocoder.css" />
+    <!--Minimap-->
+    <script type="text/javascript" src="plugins/minimap/src/controlminimap.js"> </script>
+    <link rel="stylesheet" href="plugins/minimap/src/controlminimap.css">
+    <!--fullscreen-->
+    <script type="text/javascript" src="plugins/fullscreen/controlfullscreen.js"> </script>
+    <link rel="stylesheet" href="plugins/fullscreen/controlfullscreen.css">
+    
+    <!--CARGA DE DATOS GEOJSON-->
+    <script type="text/javascript" src="datos/inundaciones/inundacion_10.js"></script>
+    <script type="text/javascript" src="datos/inundaciones/inundacion_50.js"></script>
+    <script type="text/javascript" src="datos/inundaciones/inundacion_500.js"></script>
+    <script type="text/javascript" src="datos/inundaciones/inundacion_100.js"></script>
+    <script type="text/javascript" src="datos/vias/carreteras.js"></script>
+    <script type="text/javascript" src="datos/vias/ferroviario.js"></script>
+    <script type="text/javascript" src="datos/administrativo/lora_municipio.js"></script>
+
+    <script type="text/javascript" src="datos/riesgo_urbano/constru_u_vul_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_urbano/constru_u_pel_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_urbano/constru_u_rie_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_urbano/parce_u_rie_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_urbano/parce_u_vul_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_urbano/parce_u_pel_500.js"></script>
+
+
+    <script type="text/javascript" src="datos/riesgo_rustico/subparce_r_vul_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_rustico/subparce_r_pel_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_rustico/subparce_r_rie_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_rustico/constru_r_pel_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_rustico/constru_r_vul_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_rustico/constru_r_rie_500.js"></script>
+</head>
+
+<body>
+
+
+    <div id="map">
+    </div>
+    <div id="mySidenav" class="sidenav">
+        <span class="closebtn" onclick="closeNav()">&times;</span>
+        <a href="about.html">About</a>
+        <a href="stats.html">Estadísticas</a>
+        <a href="descargas.html">Descargas</a>
+        <a href="tutorial.html">Tutorial</a>
+        <button id="showlegend">Leyenda</button>
+
+        <div id="legend" class="legend-container">
+            <h4 class="text-center">General <button id="btnVias" class="btn-ley">&duarr;</button></h4>
+
+            <div id="vias">
+                <svg height="80px" width="100%">
+                    <line x1="10" y1="10" x2="40" y2="10" style="stroke:red; stroke-width:2;" />
+                    <text x="50" y="15" style="font-family:sans-serif; font-size: 12px;"> Carretera Segundo Orden </text>
+
+                    <line x1="10" y1="30" x2="40" y2="30" style="stroke:blue; stroke-width:2;" />
+                    <text x="50" y="35" style="font-family:sans-serif; font-size: 12px;"> Carretera Tercer Orden </text>
+
+                    <line x1="10" y1="50" x2="40" y2="50" style="stroke:black; stroke-width:2; stroke-dasharray:6,6;" />
+                    <text x="50" y="55" style="font-family:sans-serif; font-size: 12px;">Línea Ferroviaria</text>
+                    <line x1="10" y1="70" x2="40" y2="70" style="stroke:black; stroke-width:2;" />
+                    <text x="50" y="75" style="font-family:sans-serif; font-size: 12px;">Límite administrativo</text>
+                </svg>
+            </div>
+            <h4 class="text2"> Inundaciones <button id="btnInunda" class="btn-ley">&duarr;</button></h4>
+            <div id="inundaciones">
+                <svg height="125" width="100%">
+                    <rect x="10" y="10" width="30" height="20" style="stroke-width:1; stroke:black; fill:#7ab9ff; fill-opacity:1;" />
+                    <text x="50" y="25" style="font-family:sans-serif; font-size: 12px;">Inundación 10</text>
+
+                    <rect x="10" y="40" width="30" height="20" style="stroke-width:1; stroke:black; fill:#52a4ff; fill-opacity:1;" />
+                    <text x="50" y="55" style="font-family:sans-serif; font-size: 12px;">Inundación 50</text>
+
+                    <rect x="10" y="70" width="30" height="20" style="stroke-width:1; stroke:black; fill:#057bff; fill-opacity:1;" />
+                    <text x="50" y="85" style="font-family:sans-serif; font-size: 12px;">Inundación 100</text>
+
+                    <rect x="10" y="100" width="30" height="20" style="stroke-width:1; stroke:black; fill:#0061cc; fill-opacity:1;" />
+                    <text x="50" y="115" style="font-family:sans-serif; font-size: 12px;">Inundación 500</text>
+                </svg>
+            </div>
+            <h4 class="text3"> Peligrosidad <button id="btnPeli" class="btn-ley">&duarr;</button></h4>
+            <div id="peligrosidad">
+                <svg height="125" width="100%">
+                    <rect x="10" y="10" width="30" height="20" style="stroke-width:1; stroke:black; fill:#f21c00; fill-opacity:1;" />
+                    <text x="50" y="25" style="font-family:sans-serif; font-size: 12px;">Peligrosidad 4</text>
+
+                    <rect x="10" y="40" width="30" height="20" style="stroke-width:1; stroke:black; fill:#fcfc10; fill-opacity:1;" />
+                    <text x="50" y="55" style="font-family:sans-serif; font-size: 12px;">Peligrosidad 3</text>
+
+                    <rect x="10" y="70" width="30" height="20" style="stroke-width:1; stroke:black; fill:#ff9f3f; fill-opacity:1;" />
+                    <text x="50" y="85" style="font-family:sans-serif; font-size: 12px;">Peligrosidad 2</text>
+
+                    <rect x="10" y="100" width="30" height="20" style="stroke-width:1; stroke:black; fill:#ffffb2; fill-opacity:1;" />
+                    <text x="50" y="115" style="font-family:sans-serif; font-size: 12px;">Peligrosidad 1</text>
+                </svg>
+            </div>
+            <h4 class="text4"> Vulnerabilidad <button id="btnVul" class="btn-ley">&duarr;</button></h4>
+            <div id="vulnerabilidad">
+                <svg height="125" width="100%">
+                    <rect x="10" y="10" width="30" height="20" style="stroke-width:1; stroke:black; fill:#f21c00; fill-opacity:1;" />
+                    <text x="50" y="25" style="font-family:sans-serif; font-size: 12px;">Vulnerabilidad 4</text>
+
+                    <rect x="10" y="40" width="30" height="20" style="stroke-width:1; stroke:black; fill:#fcfc10; fill-opacity:1;" />
+                    <text x="50" y="55" style="font-family:sans-serif; font-size: 12px;">Vulnerabilidad 3</text>
+
+                    <rect x="10" y="70" width="30" height="20" style="stroke-width:1; stroke:black; fill:#ff9f3f; fill-opacity:1;" />
+                    <text x="50" y="85" style="font-family:sans-serif; font-size: 12px;">Vulnerabilidad 2</text>
+
+                    <rect x="10" y="100" width="30" height="20" style="stroke-width:1; stroke:black; fill:#ffffb2; fill-opacity:1;" />
+                    <text x="50" y="115" style="font-family:sans-serif; font-size: 12px;">Vulnerabilidad 1</text>
+                </svg>
+            </div>
+            <h4 class="text5"> Riesgo <button id="btnRie" class="btn-ley">&duarr;</button></h4>
+            <div id="riesgo">
+                <svg height="280" width="100%">
+                    <rect x="10" y="10" width="30" height="20" style="stroke-width:1; stroke:black; fill:#800026; fill-opacity:1;" />
+                    <text x="50" y="25" style="font-family:sans-serif; font-size: 12px;">Riesgo 16</text>
+
+                    <rect x="10" y="40" width="30" height="20" style="stroke-width:1; stroke:black; fill:#bd0026; fill-opacity:1;" />
+                    <text x="50" y="55" style="font-family:sans-serif; font-size: 12px;">Riesgo 12</text>
+
+                    <rect x="10" y="70" width="30" height="20" style="stroke-width:1; stroke:black; fill:#e31a1c; fill-opacity:1;" />
+                    <text x="50" y="85" style="font-family:sans-serif; font-size: 12px;">Riesgo 9</text>
+
+                    <rect x="10" y="100" width="30" height="20" style="stroke-width:1; stroke:black; fill:#fc4e2a; fill-opacity:1;" />
+                    <text x="50" y="115" style="font-family:sans-serif; font-size: 12px;">Riesgo 8</text>
+
+                    <rect x="10" y="130" width="30" height="20" style="stroke-width:1; stroke:black; fill:#fd8d3c; fill-opacity:1;" />
+                    <text x="50" y="145" style="font-family:sans-serif; font-size: 12px;">Riesgo 6</text>
+
+                    <rect x="10" y="160" width="30" height="20" style="stroke-width:1; stroke:black; fill:#ffca79; fill-opacity:1;" />
+                    <text x="50" y="175" style="font-family:sans-serif; font-size: 12px;">Riesgo 4</text>
+
+                    <rect x="10" y="190" width="30" height="20" style="stroke-width:1; stroke:black; fill:#ffe544; fill-opacity:1;" />
+                    <text x="50" y="205" style="font-family:sans-serif; font-size: 12px;">Riesgo 3</text>
+
+                    <rect x="10" y="220" width="30" height="20" style="stroke-width:1; stroke:black; fill:#fcfc10; fill-opacity:1;" />
+                    <text x="50" y="235" style="font-family:sans-serif; font-size: 12px;">Riesgo 2</text>
+
+                    <rect x="10" y="250" width="30" height="20" style="stroke-width:1; stroke:black; fill:#ffff93; fill-opacity:1;" />
+                    <text x="50" y="265" style="font-family:sans-serif; font-size: 12px;">Riesgo 1</text>
+                </svg>
+            </div>
+
+
+        </div>
+    </div>
+    <div id="btncontainer"><span id="openbtn" onclick="openNav()"> &#187;</span></div>
+<span id="image-opacity">1</span>
+<div id="opacity-control"><input type="range" id="sldOpacity" min="0" max="1" step="0.1" value="1"/></div>
+    <script>
+        var map = L.map('map', {
+            center: [37.656764, -5.528034],
+            zoom: 9
+        });
+
+        //CARGA DE CAPAS BASE
+
+        var OSM = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        var ESRI = L.esri.basemapLayer('Imagery');
+        var ESRI_NG = L.esri.basemapLayer('NationalGeographic');
+        var ESRI_T = L.esri.basemapLayer('Topographic');
+        var ESRI_DG = L.esri.basemapLayer('DarkGray');
+       //conexión en el head con el plugin de bingmaps
+var bing = new L.BingLayer("AtMU_UBKpz6gRdbT4T66cgsePJq3o_cGuYtCaDbLRrzgRCRxQViCn6pbXK0BQAtV", {type: "Aerial"});
+//Aerial, AerialWithLabels, Birdseye, BirdseyeWithLabels, RoadAerial, AerialWithLabels y Road
+        var mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnJhbnJ2cnMiLCJhIjoiY2pzMGhzN2hkMWVzejQ0bHhiaW9wanQ1ciJ9.jnmfQX5ocawOmMjmXrnldA#14/37.2686/-112.9425',{attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'});
+
+
+
+
+        //CREACIÓN DE ESTILOS 
+
+        var styleVul = function(feature) {
+            var color,
+                vulnerabilidad = feature.properties.vulnerabilidad;
+            if (vulnerabilidad == '4') color = "#f21c00";
+            else if (vulnerabilidad == '3') color = "#fcfc10";
+            else if (vulnerabilidad == '2') color = "#ff9f3f";
+            else color = "#ffffb2"
+            return {
+                color: "black",
+                weight: 0.4,
+                fillColor: color,
+                fillOpacity: 1
+            }
+
+        };
+
+        var stylePel = function(feature) {
+            var color,
+                peligrosidad = feature.properties.peligrosidad;
+            if (peligrosidad == '4') color = "#f21c00";
+            else if (peligrosidad == '3') color = "#fcfc10";
+            else if (peligrosidad == '2') color = "#ff9f3f";
+            else color = "#ffffb2"
+            return {
+                color: "black",
+                weight: 0.4,
+                fillColor: color,
+                fillOpacity: 1
+            }
+
+
+        };
+
+        var styleRie = function(feature) {
+            var color,
+                riesgo = feature.properties.riesgo;
+
+            if (riesgo == '16') color = "#800026";
+            else if (riesgo == '12') color = "#bd0026";
+            else if (riesgo == '9') color = "#e31a1c";
+            else if (riesgo == '8') color = "#fc4e2a";
+            else if (riesgo == '6') color = "#fd8d3c";
+            else if (riesgo == '4') color = "#ffca79";
+            else if (riesgo == '3') color = "#ffe544";
+            else if (riesgo == '3') color = "#ffe544";
+            else if (riesgo == '2') color = "#fcfc10";
+            else color = "#ffff93"
+            return {
+                color: "black",
+                weight: 0.4,
+                fillColor: color,
+                fillOpacity: 1
+            }
+        };
+
+        var styleCarreteras = function(feature) {
+            var color,
+                tipo = feature.properties.jerarquia;
+            if (tipo == "Segundo orden") color = "red";
+            else if (tipo == "Tercer orden") color = "blue";
+            else color = "green";
+            return {
+                color: color,
+                weight: 1
+            }
+        };
+
+        var styleFerroviario = function(feature) {
+
+            return {
+                color: "black",
+                weight: 1,
+                dashArray: '3'
+            }
+        };
+
+        var styleMunicipio = function(feature) {
+            return {
+                color: '#000000',
+                fillColor: 'rgba(255, 255, 255, 0)',
+                weight: 1,
+                fillOpacity: 1,
+                stroke: true
+            }
+
+        };
+
+        //CREACIÓN DE POP UPS
+
+        var VulPopup = function(feature, layer) {
+            layer.bindPopup(
+                "<h3>" + feature.properties.parcat + "</h3><h4> Vulnerabilidad : " + feature.properties.vulnerabilidad + "</h4>");
+        };
+
+        var PelPopup = function(feature, layer) {
+            layer.bindPopup(
+                "<h3>" + feature.properties.parcat + "</h3><h4> Peligrosidad: " + feature.properties.peligrosidad + "</h4>");
+        };
+
+        var RiePopup = function(feature, layer) {
+            layer.bindPopup(
+                "<h3>" + feature.properties.parcat + "</h3><h4> Riesgo: " + feature.properties.riesgo + "</h4>");
+        };
+
+
+        //CARGA DE CAPAS
+
+        //MUNICIPIO
+
+        var municipio = L.geoJSON(lora_municipio, {
+            style: styleMunicipio
+        }).addTo(map);
+
+        //INUNDACIONES
+
+        var inundacion_10 = L.geoJSON(inundacion_10, {
+            style: function(feature) {
+                return {
+                    color: 'black',
+                    fillColor: '#7ab9ff',
+                    weight: 1,
+                    fillOpacity: 1,
+                    stroke: true
+                }
+            }
+        });
+        var inundacion_50 = L.geoJSON(inundacion_50, {
+            style: function(feature) {
+                return {
+                    color: 'black',
+                    fillColor: '#52a4ff',
+                    weight: 1,
+                    fillOpacity: 1,
+                    stroke: true
+                }
+            }
+        });
+        var inundacion_100 = L.geoJSON(inundacion_100, {
+            style: function(feature) {
+                return {
+                    color: 'black',
+                    fillColor: '#057bff',
+                    weight: 1,
+                    fillOpacity: 1,
+                    stroke: true
+                }
+            }
+        });
+        var inundacion_500 = L.geoJSON(inundacion_500, {
+            style: function(feature) {
+                return {
+                    color: 'black',
+                    fillColor: '#0061cc',
+                    weight: 1,
+                    fillOpacity: 1,
+                    stroke: true
+                }
+            }
+        });
+
+
+        //VULNERABILIDAD
+        var constru_u_vul_500 = L.geoJSON(constru_u_vul_500, {
+            style: styleVul,
+            onEachFeature: VulPopup
+        });
+        var subparce_r_vul_500 = L.geoJSON(subparce_r_vul_500, {
+            style: styleVul,
+            onEachFeature: VulPopup
+        });
+        var constru_r_vul_500 = L.geoJSON(constru_r_vul_500, {
+            style: styleVul,
+            onEachFeature: VulPopup
+        });
+        var parce_u_vul_500 = L.geoJSON(parce_u_vul_500, {
+            style: styleVul,
+            onEachFeature: VulPopup
+        });
+
+        //PELIGROSIDAD
+        var subparce_r_pel_500 = L.geoJSON(subparce_r_pel_500, {
+            style: stylePel,
+            onEachFeature: VulPopup
+        });
+        var constru_u_pel_500 = L.geoJSON(constru_u_pel_500, {
+            style: stylePel,
+            onEachFeature: PelPopup
+        });
+        var constru_r_pel_500 = L.geoJSON(constru_r_pel_500, {
+            style: stylePel,
+            onEachFeature: PelPopup
+
+        });
+        var parce_u_pel_500 = L.geoJSON(parce_u_pel_500, {
+            style: stylePel,
+            onEachFeature: PelPopup
+        });
+        //RIESGO
+        var subparce_r_rie_500 = L.geoJSON(subparce_r_rie_500, {
+            style: styleRie,
+            onEachFeature: RiePopup
+        });
+        var constru_u_rie_500 = L.geoJSON(constru_u_rie_500, {
+            style: styleRie,
+            onEachFeature: RiePopup
+        });
+        var constru_r_rie_500 = L.geoJSON(constru_r_rie_500, {
+            style: styleRie,
+            onEachFeature: RiePopup
+        });
+
+        var parce_u_rie_500 = L.geoJSON(parce_u_rie_500, {
+            style: styleRie,
+            onEachFeature: RiePopup
+        });
+
+        //VIAS
+
+        var carreteras = L.geoJSON(carreteras, {
+            style: styleCarreteras
+        }).addTo(map);
+
+        var ferroviario = L.geoJSON(ferroviario, {
+            style: styleFerroviario
+        }).addTo(map);
+
+
+        //FIT BOUNDS
+var bounds = municipio.getBounds();
+        map.flyToBounds(bounds);
+
+        //CONTROLES
+        
+ // create fullscreen control
+		var fsControl = new L.Control.FullScreen();
+		// add fullscreen control to the map
+		map.addControl(fsControl);
+
+		// detect fullscreen toggling
+		map.on('enterFullscreen', function(){
+			if(window.console) window.console.log('enterFullscreen');
+		});
+		map.on('exitFullscreen', function(){
+			if(window.console) window.console.log('exitFullscreen');
+		});
+        
+        //TITULO
+        var title = L.control();
+        title.onAdd = function(map) {
+            var div = L.DomUtil.create('div', 'info');
+            div.innerHTML =
+                '<h2>ANÁLISIS DE RIESGO DE INUNDACIÓN EN LORA DEL RÍO</h2>';
+            return div;
+        };
+        title.addTo(map);
+        //MOUSE POSITION
+        L.control.mousePosition().addTo(map);
+        //ESCALA
+        L.control.scale({
+            imperial: false
+        }).addTo(map);
+        L.easyPrint({
+            title: 'Imprimir',
+            position: 'bottomleft',
+            elementsToHide: 'header'
+        }).addTo(map);
+
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'Kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: undefined,
+            localization: 'es',
+            decPoint: '.',
+            thousandSep: '',
+            activeColor: '#04B404',
+            completedColor: '#58FAD0'
+        }).addTo(map);
+
+        var osmGeocoder = new L.Control.OSMGeocoder({
+            placeholder: 'Buscar ubicación...',
+            collapsed: false,
+            text: "Buscador"
+        });
+
+        map.addControl(osmGeocoder);
+
+        var miniMap = new L.Control.MiniMap(ESRI, {
+            toggleDisplay: true,
+            zoomAnimation: true
+        }).addTo(map);
+
+
+        var baseLayers = [{
+            groupName: "MAPAS BASE",
+            layers: {
+                "Open Stret Map": OSM,
+                "Bing": bing,
+                "Mapbox": mapbox,
+                "PNOA":Spain_PNOA_Ortoimagen,
+            }
+        }];
+
+        var overlays = [{
+                groupName: "RIESGO",
+                layers: {
+                    "Construcciones Urbanas": constru_u_rie_500,
+                    "Construcciones Rústicas": constru_r_rie_500,
+                    "Parcelas Urbanas": parce_u_rie_500,
+                    "Subparcelas Rústicas": subparce_r_rie_500
+                }
+            },
+            {
+                groupName: "VULNERABILIDAD",
+                layers: {
+                    "Construcciones Rústicas": constru_r_vul_500,
+                    "Construcciones Urbanas": constru_u_vul_500,
+                    "Subparcelas Rústicas": subparce_r_vul_500,
+                    "Parcelas Urbanas": parce_u_vul_500,
+                }
+            },
+            {
+                groupName: "PELIGROSIDAD",
+                layers: {
+                    "Construcciones Urbanas": constru_u_pel_500,
+                    "Construcciones Rústicas": constru_r_pel_500,
+                    "Parcelas Urbanas": parce_u_pel_500,
+                    "Subparcelas Rústicas": subparce_r_pel_500
+                }
+            },
+            {
+                groupName: "INUNDACIONES",
+                layers: {
+                    "Inundación PR 10": inundacion_10,
+                    "Inundación PR 50": inundacion_50,
+                    "Inundación PR 100": inundacion_100,
+                    "Inundación PR 500": inundacion_500
+                }
+            }
+        ];
+
+        var options = {
+            container_width: "250px",
+            group_maxHeight: "80px",
+            exclusive: false,
+            collapsed: true,
+            position: 'topright',
+        };
+
+
+        var capas = L.Control.styledLayerControl(baseLayers, overlays, options); //addTo(map); es posible tmbn
+        map.addControl(capas);
+      
+        
+/*
+        map.on('overlayadd', function(e) {
+            var strDiv = "#" + stripSpaces(e.name);
+            alert('Show "' + strDiv + '"')
+        });
+
+        map.on('overlayremove', function(e) {
+            var strDiv = "#" + stripSpaces(e.name);
+            alert('Hide "' + strDiv + '"')
+        });
+
+
+        function stripSpaces(str) {
+            return str.replace(/\s+/g, '');
+        };
+        
+    */
+
+        //Mostrar leyenda
+
+        $("#showlegend").click(function() {
+            $("#legend").toggle("slow");
+        });
+        $("#btnVias").click(function() {
+            $("#vias").toggle("slow");
+        });
+        $("#btnInunda").click(function() {
+            $("#inundaciones").toggle("slow");
+        });
+        $("#btnPeli").click(function() {
+            $("#peligrosidad").toggle("slow");
+        });
+        $("#btnVul").click(function() {
+            $("#vulnerabilidad").toggle("slow");
+        });
+        $("#btnRie").click(function() {
+            $("#riesgo").toggle("slow");
+        });
+        
+        
+        //OPACIDAD
+        
+         $('#sldOpacity').on('change', function(){
+    $('#image-opacity').html(this.value);
+    inundacion_10.setStyle({opacity: this.value, fillOpacity: this.value});
+    inundacion_50.setStyle({opacity: this.value, fillOpacity: this.value});
+    inundacion_100.setStyle({opacity: this.value, fillOpacity: this.value});
+    inundacion_500.setStyle({opacity: this.value, fillOpacity: this.value});
+             
+}); 
+        
+        //LEYENDA
+        /*
+          var ctLegend = new L.Control.Legend({
+            position:'topright',
+            controlButton:{title:"Leyenda"}
+        }).addTo(map);
+        
+        $(".legend-container").append($("#legend"));
+        
+        */
+
+    </script>
+
+</body>
+
+</html>

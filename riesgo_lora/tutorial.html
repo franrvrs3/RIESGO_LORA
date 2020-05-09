@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="css/estilo2.css">
+    <script src="js/codigo2.js" type="text/javascript" ></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bitter:wght@700&family=Frank+Ruhl+Libre:wght@700;900&family=Karla:wght@700&family=Lora:wght@600;700&family=Oswald:wght@600&family=Playfair+Display:ital,wght@1,600;1,800&display=swap" rel="stylesheet">
+    <!-- JQuery -->
+     <script src="js/jquery.js" type="text/javascript"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  
+    
+</head>
+
+<body>
+   <div id="particles-js"></div>
+    <header>
+
+    </header>
+    <div id="mySidenav" class="sidenav">
+        <span class="closebtn" onclick="closeNav()">&times;</span>
+        <a href="about.html">About</a>
+        <a href="index.html">Webmap</a>
+        <a href="stats.html">Estadísticas</a>
+        <a href="descargas.html">Descargas</a>
+    </div>
+    <div id="btncontainer"><span id="openbtn" onclick="openNav()"> &#187;</span></div>
+    <div id="container">
+        <h1>TUTORIAL WEB-MAP</h1>
+        <section class="content">
+
+           
+            
+            <figure id="panoramica" class="imagen">
+                <img src="images/tutorial/panoramica.JPG" alt="">
+                <figcaption>Visualización</figcaption>
+            </figure>
+            <p id="texto-vis">
+                 En este apartado se describe el funcionamiento del mapa web de una forma ilustrada para que el usuario pueda usarlo fácilmente. A través de una primera visualización inicial se observa cómo el mapa se centra en el municipio de Lora del Río (Sevilla). Respecto al diseño del web mapping el mapa ocupa el 100% de la pantalla del navegador y los elementos característicos de la composición se superponen a este, como el título del mismo en la esquina superior derecha. En la composición del mapa encontramos diversos elementos. En primer lugar cabe destacar en la parte superior izquierda el botón circular con doble flecha, a partir del cual se despliega el menú de navegación.   
+            </p>
+            
+             <figure id="navegacion" class="imagen">
+                <img src="images/tutorial/slider.JPG" alt="">
+                <figcaption>Menú de Navegación</figcaption>
+            </figure>
+            <p>
+               En este menú de navegación encontramos los enlaces a <strong>ABOUT</strong> en donde se especifíca el origen y objetivos del proyecto de este web-map; ESTADÍSTICAS donde se accede a un panel de enlaces de visualización de estadísticas realizadas para los elementos afectados por las diversas inundaciones; DESCARGAS donde se puede encontrar la información descargable del proyecto; TUTORIAL esta misma página donde especificamos el proceso de navegación y sus características. 
+            </p>
+            <figure id="leyenda" class="imagen">
+                <img src="images/tutorial/leyenda-desplegable.JPG" alt="">
+                <figcaption>Leyenda</figcaption>
+            </figure>
+            <p>
+             Haciendo click en el botón de color azul <strong>LEYENDA</strong> se despliega un panel con información relativa a la leyenda del mapa. En la sección GENERAL se encuentra la representación de las vías ferroviarias, carretras secundarias y terciarias así como del límite administrativo del municipio de Lora del Río. En la sección INUNDACIONES se especifica la representación de las cuatro inundaciones con periodo de retorno de 500, 100, 50 y 10 años para el municipio de Lora del Río. En la sección PELIGROSIDAD se muestra la respresentación de los cuatro niveles de peligrosidad. En la sección VULNERABILIDAD se especifíca la representación de los cuatro niveles de vulnerabilidad establecidos. En la sección RIESGO se muestran la representación de esta variable, producto de la multiplicación de la vulnerabilidad por la peligrosidad. 
+              
+            </p>
+             <figure id="layers" class="imagen">
+                <img src="images/tutorial/layers-desplegado.JPG" alt="">
+                <figcaption>Control de capas</figcaption>
+            </figure>
+            <p>
+        En la parte superior derecha de la vista del mapa se presenta el control de capas. Este control de capas nos permitirá activar o desactivar aquellas capas de información que queremos que sean representadas. La visualización de las mismas atiende al principio de superposición en el que las capas seleccionas primeramente estarán situadas por debajo de las capas seleccionadas en segundo lugar. Este apartado presenta un total de 5 pestañas. </p>
+          <figure id="control-opacidad" class="imagen">
+                <img src="images/tutorial/opacidad.JPG" alt="">
+                <figcaption>Control de opacidad</figcaption>
+            </figure>
+           <p>
+           En la primera pestaña (MAPAS BASE) encontramos cartografía base para la representación del mapa, disponiendo de los Tiles Maps de Open Street Map, de las imagenes satelitales de Bing y Mapbox, así como del Plan Nacional de Ortofotografía Aerea más reciente. Estas capas base son las encargadas de dar un contexto geográfico al web mapping, lo que permite al usuario poder interpretar la información de las capas temáticas. Para la realización de las capas temáticas se ha utilizado archivos GeoJSON y se listan en las siguientes pestañas. En la ventana INUNDACIONES encontramos las cuatro inundaciones con distinto periodo de retorno. La opacidad de estas capas de inundación puede ser modificada por el usuario a través del controlador de opacidad situado en la parte inferior derecha del visor. En la tres siguientes pestañas (VULNERABILIDAD, PELIGROSIDAD y RIESGO) se muestran las capas de análisis de Subparcelas Rústicas, Construcciones Rústicas, Parcelas Urbanas y Construcciones Urbanas para cada variable. 
+            </p>
+              <figure id="minimapzoom" class="imagen">
+                <img src="images/tutorial/minimapzoom.JPG" alt="">
+                <figcaption>Minimapa</figcaption>
+            </figure>
+            <p>
+                En la parte superior derecha se haya el buscador de ubicaciones. Es posible encontrar cualquier nombre registrado en la base de datos de Open Street Maps, mientras que en la parte inferior izquierda se encuentra un minimapa de situación desplegable con imagen satelital proveida por ESRI. 
+            </p>
+             <figure id="printer" class="imagen">
+                <img src="images/tutorial/printer-escala-posicionamiento.JPG" alt="">
+                <figcaption>Printer, escala y posicionador</figcaption>
+            </figure>
+            <p>
+               Por último, en la parte inferior izquierda de la composición del web-map se ubican tanto el gestor de impresión de imagen del mapa web (en caso de que se quiera obtener impresiones fácilmente) así como de la escala del mapa y el posicionamiento en coordenadas geográficas del cursor. Además en el web mapping se incluyen otras características habituales: un control de zoom (esquina superior izquierda)y la atribución de la capa base (esquina inferior derecha). El control de zoom nos va permitir ampliar o disminuir el zoom hasta el nivel que consideramos necesario para ver el mapa temático y base mientras que la atribución nos informa de quién es el autor de la capa base.   
+            </p>
+            
+            <p>
+                Las capas temáticas de VULNERABILIDAD, RIESGO y PELIGROSIDAD presentan ventanas emergentes. Las ventanas emergentes contienen información y se muestra cuando se hace clic sobre un elemento de la capa temática. El contenido de cada ventana emergente es un texto diferente en cada marcador y que informa sobre el lugar en el que se posiciona el marcador.
+
+                
+            </p>
+            
+            
+        </section>
+        <section class="content second-content">
+        
+       </section> 
+    </div>
+    
+    <footer>
+      <div id="footer-content">
+       <p>MÁSTER EN GESTIÓN DEL TERRITORIO, INSTRUMENTOS Y TÉCNICAS DE INTERVENCIÓN (UNIVERSIDAD DE SEVILLA)</p>
+        <p>Contacto: franrivera3@hotmail.com</p>
+        </div>
+    </footer>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
