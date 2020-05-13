@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../css/estilo.css">
+    <link rel="stylesheet" href="../../css/estilo2.css">
+    <script src="../../js/codigo2.js" type="text/javascript" ></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bitter:wght@700&family=Frank+Ruhl+Libre:wght@700;900&family=Karla:wght@700&family=Lora:wght@600;700&family=Oswald:wght@600&family=Playfair+Display:ital,wght@1,600;1,800&display=swap" rel="stylesheet">
+    <!-- JQuery -->
+     <script src="../../js/jquery.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+     <!-- ChartsJS -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
+<style>
+    
+    section{
+        margin-bottom: 50px;
+        width: 100%;
+        height: 70vh;
+    }
+    
+    section:last-of-type{
+        margin-bottom: 20px;
+    }
+
+    #myChart3{
+        height: 100vh;
+    }
+    
+</style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <header>
+
+    </header>
+    <div id="mySidenav" class="sidenav">
+        <span class="closebtn" onclick="closeNav()">&times;</span>
+        <a href="../../about.html">About</a>
+        <a href="../../index.html">Webmap</a>
+        <a href="../../descargas.html">Descargas</a>
+         <a href="../../stats.html">Estadísticas</a>
+        <a href="../../tutorial.html">Tutorial</a>
+    </div>
+    <div id="btncontainer"><span id="openbtn" onclick="openNav()"> &#187;</span></div>
+    <div id="container" >
+        <h1>ESTADÍSTICAS: CONSTRUCCIONES RÚSTICAS</h1>
+        <section id="content first-content">
+          <canvas id="myChart" >Your browser does not support the canvas element</canvas>
+        </section>
+        <section>
+             <canvas id="myChart2">Your browser does not support the canvas element</canvas>
+        </section>
+
+        <section>
+             <canvas id="myChart4">Your browser does not support the canvas element</canvas>
+        </section>
+          <section>
+             <canvas id="myChart5">Your browser does not support the canvas element</canvas>
+        </section>
+
+
+    </div>
+
+    <footer>
+        <div id="footer-content">
+            <p>MÁSTER EN GESTIÓN DEL TERRITORIO, INSTRUMENTOS Y TÉCNICAS DE INTERVENCIÓN (UNIVERSIDAD DE SEVILLA)</p>
+            <p>Contacto: franrivera3@hotmail.com</p>
+        </div>
+    </footer>
+    <script src="../../js/app.js"></script>
+    <script>
+
+    
+        var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: ["Inundación PR 10","Inundación PR 50","Inundación PR 100","Inundación PR 500"],
+            datasets: [{
+                label: 'Registros',
+                backgroundColor: [
+                    'rgba(91, 155, 213)',
+                    'rgba(237, 125, 49)',
+                    'rgba(165, 165, 165)',
+                    'rgba(255, 192, 0)'
+                ],
+                hoverBackgroundColor: [
+                    'rgba(91, 155, 213, 0.6)',
+                    'rgba(237, 125, 49, 0.6)',
+                    'rgba(165, 165, 165, 0.6)',
+                    'rgba(255, 192, 0, 0.6)'
+                ],
+                borderColor: 'rgb(3, 3, 3)',
+                borderWidth: 1,
+                data: [133,206,331,397]
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+
+                    gridLines: {
+            display: true,
+            color: "rgb(0, 0, 0, 0.6)"
+         },
+                    ticks: {
+                    fontColor: "black",
+                    fontSize: 12,
+                    stepSize: 50,
+                    beginAtZero: true,
+                        fontStyle: 'bold'
+                }
+                }], xAxes:[{
+
+                    gridLines: {
+            display: true,
+            color: "rgb(0, 0, 0, 0.6)"
+         },
+                    ticks: {
+                    fontColor: "black",
+                    fontSize: 12,
+                    stepSize: 100,
+                    beginAtZero: true,
+                        fontStyle: 'bold'
+                }
+                }]
+
+            },
+            tooltips: {
+                enabled: true
+            },
+            plugins: {
+                datalabels: {
+                    display: false,
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        let percentage = (value * 100 / sum).toFixed(2) + "%";
+                        return percentage;
+                    },
+                    color: '#ffffff',
+                },
+                
+            },
+            legend: {
+                display: false,
+                position: 'bottom',
+                align: 'center',
+                reverse: true,
+                labels: {
+                    fontColor: '#333',
+                    padding: 20,
+                    usePointStyle: true,
+                    fontFamily: 'Arial',
+                    fontStyle: 'bold'
+                }
+
+
+            },
+            title: {
+                display: true,
+                position: 'top',
+                text: 'Recuento de construcciones rústicas afectadas por las inundaciones',
+                fontSize: 18,
+                fontFamily: 'Helvetica Neue', //'Helvetica', 'Arial', sans-serif"
+                fontStyle: 'bold',
+                padding: 20,
+                fontColor: '#333'
+            },
+
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 20,
+                    top: 0,
+                    bottom: 0,
+                }
+
+            }
+
+        }
+
+    });
+
+
+    //SECOND CHART
+        
+        
+        
+        /*
+        
+        {
+  "inundacion":["Inundación 10","Inundación 100","Inundación 50","Inundación 500"],
+  "registros":[133,331,206,397],
+  "metros_cuadrados_totales":[53958.4393800181,175645.822105908,128751.039597697,187042.891869627],
+  "metros_cuadrados_afectados":[23871.3933292893,160581.215341313,107791.169634531,179553.804679007],
+  "porcentaje_afectado":[44.2403331222536,91.4233048164891,83.7206207975808,95.9960589168822]
+}
+
+        
+        
+        
+        */
+        var ctx2 = document.getElementById('myChart2').getContext('2d');
+    var chart = new Chart(ctx2, {
+        // The type of chart we want to create
+        type: 'bar',
+        //
+        scaleFontColor: "white",
+        // The data for our dataset
+        data: {
+            labels: ["Inundación PR 10","Inundación PR 50","Inundación PR 100","Inundación PR 500"],
+            datasets: [{
+                    label: 'Area total',
+                   
+                    backgroundColor: [
+                        'rgb(10, 0, 248)',
+                        'rgb(10, 0, 248)',
+                        'rgb(10, 0, 248)',
+                        'rgb(10, 0, 248)',
+                    ],hoverBackgroundColor: [
+                        'rgb(10, 0, 248, 0.6)',
+                        'rgb(10, 0, 248, 0.6)',
+                       'rgb(10, 0, 248, 0.6)',
+                       'rgb(10, 0, 248, 0.6)',
+                ],
+                    borderColor: 'rgb(3, 3, 3)',
+                    borderWidth: 1,
+                    data: [53958.43,128751.03, 175645.82, 187042.89]
+                },
+                {
+                    label: 'Area afectada',
+                    backgroundColor: [
+                        'rgb(245, 160, 0)',
+                        'rgb(245, 160, 0)',
+                        'rgb(245, 160, 0)',
+                        'rgb(245, 160, 0)',
+                    ], hoverBackgroundColor: [
+                        'rgb(245, 160, 0, 0.6)',
+                        'rgb(245, 160, 0, 0.6)',
+                        'rgb(245, 160, 0, 0.6)',
+                        'rgb(245, 160, 0, 0.6)',
+                    ],
+                    borderColor: 'rgb(3, 3, 3)',
+                    borderWidth: 1,
+                    data:[23871.39,107791.16,160581.21,179553.80],
+
+                }
+            ]
+        },
+        // Configuration options go here
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    id: 'A',
+                    position: 'left',
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 12,
+                        fontColor: "#000"
+                    },
+                    gridLines: {
+            display: true,
+            color: "rgb(0, 0, 0, 0.6)"
+         },
+                    ticks: {
+                    fontColor: "black",
+                    fontSize: 12,
+                    stepSize: 10000,
+                    beginAtZero: true,
+                    fontStyle: 'bold'
+                }
+                }],xAxes: [{
+                    id: 'B',
+                  categoryPercentage: 1, //amchura de barras
+            barPercentage: 0.6, //interespaciado de barras
+                gridLines: {
+            display: true,
+            color: "rgb(0, 0, 0, 0.6)"
+         },
+                    ticks: {
+                    fontColor: "black",
+                    fontSize: 12,
+                    stepSize: 1,
+                    beginAtZero: true,
+                        fontStyle: 'bold'
+                }
+                    
+                    }]
+                
+            },
+            legend: {
+                display: true,
+                position: 'top',
+                align: 'center',
+                reverse: false,
+                labels: {
+                    fontColor: '#333',
+                    padding: 20,
+                    usePointStyle: true,
+                    fontFamily: 'Arial',
+                    fontStyle: 'bold',
+                    
+                }
+            },
+             title: {
+                display: true,
+                position: 'top',
+                text: 'Area total y area afectada en m2 de las construcciones rústicas afectadas por las diversas inundaciones',
+                fontSize: 18,
+                fontFamily: 'Helvetica Neue', //'Helvetica', 'Arial', sans-serif"
+                fontStyle: 'bold',
+                padding: 10,
+                 fontColor: '#000'
+            },
+              layout: {
+                padding: {
+                    left: 0,
+                    right: 20,
+                    top: 0,
+                    bottom: 0,
+                }
+
+            },  plugins: {
+                datalabels: {
+                   display: false
+                }, 
+                
+            }   
+        }
+    });
+        
+
+         var ctx4 = document.getElementById('myChart4').getContext('2d');
+    var chart = new Chart(ctx4, {
+        // The type of chart we want to create
+        type: 'horizontalBar',
+        //
+        scaleFontColor: "white",
+        // The data for our dataset
+        data: {
+            labels: ["Vulnerabilidad 1 \n(-)","Vulnerabilidad 2","Vulnerabilidad 3","Vulnerabilidad 4 (+)"],
+            datasets: [{
+                    label: 'Inundación PR 10',
+                   
+                    backgroundColor: 
+                        'rgb(91, 155, 213)'   
+                ,
+                    borderColor: 'rgb(3, 3, 3)',
+                    borderWidth: 1,
+                    data:[77,1,38,0]
+
+
+                },{
+                    label: 'Inundación PR 50',
+                   
+                    backgroundColor: 
+                        'rgba(237, 125, 49)'  
+                ,
+                    borderColor: 'rgb(3, 3, 3)',
+                    borderWidth: 1,
+                    data: [182,10,101,0]
+},{
+                    label: 'Inundación PR 100',
+                   
+                    backgroundColor: 
+                    'rgba(165, 165, 165)', 
+                
+                    borderColor: 'rgb(3, 3, 3)',
+                    borderWidth: 1,
+                    data: [106,5,64,0]
+
+},
+                       {
+                    label: 'Inundación PR 500',
+                   
+                    backgroundColor: 
+                        'rgb(245, 160, 0)',
+                
+                    borderColor: 'rgb(3, 3, 3)',
+                    borderWidth: 1,
+                    data: [218,10,117,0]
+
+}
+]
+            
+        },
+        // Configuration options go here
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    id: 'A',
+                    position: 'left',
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 13,
+                        fontColor: "#000"
+                    },
+                    gridLines: {
+            display: true,
+            color: "rgb(0, 0, 0, 0.6)"
+         },
+                    ticks: {
+                    reverse:true,
+                    fontColor: "black",
+                    fontSize: 12,
+                    stepSize: 10,
+                    beginAtZero: false,
+                    fontStyle: 'bold'
+                }
+                }],xAxes: [{
+                    id: 'B',
+                gridLines: {
+            display: true,
+            color: "rgb(0, 0, 0, 0.6)"
+         },
+                    ticks: {
+                    fontColor: "black",
+                    fontSize: 12,
+                    stepSize: 50,
+                    beginAtZero: true,
+                        fontStyle: 'bold'
+                }
+                    
+                    }]
+                
+            },
+            legend: {
+                display: true,
+                position: 'top',
+                align: 'center',
+                reverse: false,
+                labels: {
+                    fontColor: '#333',
+                    padding: 20,
+                    usePointStyle: true,
+                    fontFamily: 'Arial',
+                    fontStyle: 'bold',
+                    
+                }
+            },
+             title: {
+                display: true,
+                position: 'top',
+                text: 'Recuento de construcciones rústicas afectadas por las diversas inundaciones por nivel de vulnerabilidad',
+                fontSize: 18,
+                fontFamily: 'Helvetica Neue', //'Helvetica', 'Arial', sans-serif"
+                fontStyle: 'bold',
+                padding: 10,
+                 fontColor: '#000'
+            },
+              layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }
+
+            },  plugins: {
+                datalabels: {
+                   display: false,
+                    rotation: 90,
+                    color: 'black',
+                    
+                }, 
+                
+            }   
+         }
+    });    
+        
+        
+    
+                var ctx5 = document.getElementById('myChart5').getContext('2d');
+    var chart = new Chart(ctx5, {
+        // The type of chart we want to create
+        type: 'horizontalBar',
+        //
+        scaleFontColor: "white",
+        // The data for our dataset
+        data: {
+            labels: ["Peligrosidad 4(+)","Peligrosidad 3","Peligrosidad 2","Peligrosidad 1(-)"],
+            datasets: [{
+                    label: 'Registros',
+                   
+                    backgroundColor:[
+                    '#f21c00',
+                    '#fcfc10',
+                    '#ff9f3f',
+                    '#ffffb2'
+                ] 
+                ,
+                    borderColor: 'rgb(3, 3, 3)',
+                    borderWidth: 1,
+                    data: [116,59,118,52]
+            
+                }
+]
+            
+        },
+        // Configuration options go here
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    id: 'A',
+                    position: 'left',
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 13,
+                        fontColor: "#000"
+                    },
+                    gridLines: {
+            display: true,
+            color: "rgb(0, 0, 0, 0.6)"
+         },
+                    ticks: {
+                    fontColor: "black",
+                    fontSize: 12,
+                    stepSize: 1000,
+                    beginAtZero: false,
+                    fontStyle: 'bold'
+                }
+                }],xAxes: [{
+                    id: 'B',
+                gridLines: {
+            display: true,
+            color: "rgb(0, 0, 0, 0.6)"
+         },
+                    ticks: {
+                    fontColor: "black",
+                    fontSize: 12,
+                    stepSize: 30,
+                    beginAtZero: true,
+                        fontStyle: 'bold'
+                }
+                    
+                    }]
+                
+            },
+            legend: {
+                display: false,
+                position: 'top',
+                align: 'center',
+                reverse: false,
+                labels: {
+                    fontColor: '#333',
+                    padding: 20,
+                    usePointStyle: true,
+                    fontFamily: 'Arial',
+                    fontStyle: 'bold',
+                    
+                }
+            },
+             title: {
+                display: true,
+                position: 'top',
+                text: 'Recuento de construcciones rústicas afectadas por nivel de peligrosidad',
+                fontSize: 18,
+                fontFamily: 'Helvetica Neue', //'Helvetica', 'Arial', sans-serif"
+                fontStyle: 'bold',
+                padding: 20,
+                 fontColor: '#000'
+            },
+              layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }
+
+            },  plugins: {
+                datalabels: {
+                   display: false,
+                    rotation: 90,
+                    color: 'black',
+                    
+                }, 
+                
+            }   
+         }
+    });  
+
+  
+    </script>
+
+</body></html>

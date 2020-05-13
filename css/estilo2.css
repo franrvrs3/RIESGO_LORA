@@ -182,3 +182,11 @@ footer p{
     position: relative;
     top: -10px;
 }
+
+
+@media screen and (min-width: 870px ) {
+    .boton_fondo{
+       padding: 24px;
+    }
+    
+}
