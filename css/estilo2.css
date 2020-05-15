@@ -176,6 +176,7 @@ footer p{
 .second-content{
     position: relative;
     top:25px;
+    margin-bottom: 50px;
 }
 
 .slideshow-container{
@@ -187,6 +188,14 @@ footer p{
 @media screen and (min-width: 870px ) {
     .boton_fondo{
        padding: 24px;
+    }
+    
+}
+@media screen and (min-height: 950px ) {
+    
+    .second-content{
+    top:50px;
+    margin-bottom: 120px;
     }
     
 }
