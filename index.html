@@ -202,9 +202,6 @@ var bing = new L.BingLayer("AtMU_UBKpz6gRdbT4T66cgsePJq3o_cGuYtCaDbLRrzgRCRxQViC
 //Aerial, AerialWithLabels, Birdseye, BirdseyeWithLabels, RoadAerial, AerialWithLabels y Road
         var mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnJhbnJ2cnMiLCJhIjoiY2pzMGhzN2hkMWVzejQ0bHhiaW9wanQ1ciJ9.jnmfQX5ocawOmMjmXrnldA#14/37.2686/-112.9425',{attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'});
 
-
-
-
         //CREACIÓN DE ESTILOS 
 
         var styleVul = function(feature) {
@@ -389,7 +386,7 @@ var bing = new L.BingLayer("AtMU_UBKpz6gRdbT4T66cgsePJq3o_cGuYtCaDbLRrzgRCRxQViC
         //PELIGROSIDAD
         var subparce_r_pel_500 = L.geoJSON(subparce_r_pel_500, {
             style: stylePel,
-            onEachFeature: VulPopup
+            onEachFeature: PelPopup
         });
         var constru_u_pel_500 = L.geoJSON(constru_u_pel_500, {
             style: stylePel,
@@ -432,19 +429,14 @@ var bing = new L.BingLayer("AtMU_UBKpz6gRdbT4T66cgsePJq3o_cGuYtCaDbLRrzgRCRxQViC
         var ferroviario = L.geoJSON(ferroviario, {
             style: styleFerroviario
         }).addTo(map);
-
-
         //FIT BOUNDS
 var bounds = municipio.getBounds();
         map.flyToBounds(bounds);
-
         //CONTROLES
-        
  // create fullscreen control
 		var fsControl = new L.Control.FullScreen();
 		// add fullscreen control to the map
 		map.addControl(fsControl);
-
 		// detect fullscreen toggling
 		map.on('enterFullscreen', function(){
 			if(window.console) window.console.log('enterFullscreen');
@@ -452,7 +444,6 @@ var bounds = municipio.getBounds();
 		map.on('exitFullscreen', function(){
 			if(window.console) window.console.log('exitFullscreen');
 		});
-        
         //TITULO
         var title = L.control();
         title.onAdd = function(map) {
@@ -560,25 +551,6 @@ var bounds = municipio.getBounds();
 
         var capas = L.Control.styledLayerControl(baseLayers, overlays, options); //addTo(map); es posible tmbn
         map.addControl(capas);
-      
-        
-/*
-        map.on('overlayadd', function(e) {
-            var strDiv = "#" + stripSpaces(e.name);
-            alert('Show "' + strDiv + '"')
-        });
-
-        map.on('overlayremove', function(e) {
-            var strDiv = "#" + stripSpaces(e.name);
-            alert('Hide "' + strDiv + '"')
-        });
-
-
-        function stripSpaces(str) {
-            return str.replace(/\s+/g, '');
-        };
-        
-    */
 
         //Mostrar leyenda
 
@@ -601,7 +573,6 @@ var bounds = municipio.getBounds();
             $("#riesgo").toggle("slow");
         });
         
-        
         //OPACIDAD
         
          $('#sldOpacity').on('change', function(){
@@ -612,17 +583,7 @@ var bounds = municipio.getBounds();
     inundacion_500.setStyle({opacity: this.value, fillOpacity: this.value});
              
 }); 
-        
-        //LEYENDA
-        /*
-          var ctLegend = new L.Control.Legend({
-            position:'topright',
-            controlButton:{title:"Leyenda"}
-        }).addTo(map);
-        
-        $(".legend-container").append($("#legend"));
-        
-        */
+
 
     </script>
     
