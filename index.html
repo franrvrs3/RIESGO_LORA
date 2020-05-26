@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <title>Webmap</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -39,29 +40,6 @@
     <script type="text/javascript" src="plugins/fullscreen/controlfullscreen.js"> </script>
     <link rel="stylesheet" href="plugins/fullscreen/controlfullscreen.css">
     
-    <!--CARGA DE DATOS GEOJSON-->
-    <script type="text/javascript" src="datos/inundaciones/inundacion_10.js"></script>
-    <script type="text/javascript" src="datos/inundaciones/inundacion_50.js"></script>
-    <script type="text/javascript" src="datos/inundaciones/inundacion_500.js"></script>
-    <script type="text/javascript" src="datos/inundaciones/inundacion_100.js"></script>
-    <script type="text/javascript" src="datos/vias/carreteras.js"></script>
-    <script type="text/javascript" src="datos/vias/ferroviario.js"></script>
-    <script type="text/javascript" src="datos/administrativo/lora_municipio.js"></script>
-
-    <script type="text/javascript" src="datos/riesgo_urbano/constru_u_vul_500.js"></script>
-    <script type="text/javascript" src="datos/riesgo_urbano/constru_u_pel_500.js"></script>
-    <script type="text/javascript" src="datos/riesgo_urbano/constru_u_rie_500.js"></script>
-    <script type="text/javascript" src="datos/riesgo_urbano/parce_u_rie_500.js"></script>
-    <script type="text/javascript" src="datos/riesgo_urbano/parce_u_vul_500.js"></script>
-    <script type="text/javascript" src="datos/riesgo_urbano/parce_u_pel_500.js"></script>
-
-
-    <script type="text/javascript" src="datos/riesgo_rustico/subparce_r_vul_500.js"></script>
-    <script type="text/javascript" src="datos/riesgo_rustico/subparce_r_pel_500.js"></script>
-    <script type="text/javascript" src="datos/riesgo_rustico/subparce_r_rie_500.js"></script>
-    <script type="text/javascript" src="datos/riesgo_rustico/constru_r_pel_500.js"></script>
-    <script type="text/javascript" src="datos/riesgo_rustico/constru_r_vul_500.js"></script>
-    <script type="text/javascript" src="datos/riesgo_rustico/constru_r_rie_500.js"></script>
 </head>
 
 <body>
@@ -75,7 +53,7 @@
         <a href="stats.html">Estadísticas</a>
         <a href="descargas.html">Descargas</a>
         <a href="tutorial.html">Tutorial</a>
-       <a href="contacto/contacto.html">Contacto</a>
+        <a href="contacto/contacto.html">Contacto</a>
         <button id="showlegend">Leyenda</button>
 
         <div id="legend" class="legend-container">
@@ -181,6 +159,29 @@
     <div id="btncontainer"><span id="openbtn" onclick="openNav()"> &#187;</span></div>
 <span id="image-opacity">1</span>
 <div id="opacity-control"><input type="range" id="sldOpacity" min="0" max="1" step="0.1" value="1"/></div>
+   <!--CARGA DE DATOS GEOJSON-->
+    <script type="text/javascript" src="datos/inundaciones/inundacion_10.js"></script>
+    <script type="text/javascript" src="datos/inundaciones/inundacion_50.js"></script>
+    <script type="text/javascript" src="datos/inundaciones/inundacion_500.js"></script>
+    <script type="text/javascript" src="datos/inundaciones/inundacion_100.js"></script>
+    <script type="text/javascript" src="datos/vias/carreteras.js"></script>
+    <script type="text/javascript" src="datos/vias/ferroviario.js"></script>
+    <script type="text/javascript" src="datos/administrativo/lora_municipio.js"></script>
+
+    <script type="text/javascript" src="datos/riesgo_urbano/constru_u_vul_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_urbano/constru_u_pel_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_urbano/constru_u_rie_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_urbano/parce_u_rie_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_urbano/parce_u_vul_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_urbano/parce_u_pel_500.js"></script>
+
+
+    <script type="text/javascript" src="datos/riesgo_rustico/subparce_r_vul_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_rustico/subparce_r_pel_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_rustico/subparce_r_rie_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_rustico/constru_r_pel_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_rustico/constru_r_vul_500.js"></script>
+    <script type="text/javascript" src="datos/riesgo_rustico/constru_r_rie_500.js"></script>
     <script>
         var map = L.map('map', {
             center: [37.656764, -5.528034],
@@ -624,6 +625,7 @@ var bounds = municipio.getBounds();
         */
 
     </script>
+    
 
 </body>
 

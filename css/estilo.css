@@ -152,7 +152,7 @@ input[type=range]::-ms-fill-upper {
     text-decoration: none;
     font-size: 25px;
     color: black;
-    display: block;
+    display:block;
     transition: 0.2s;
     text-align: center;
     top: 30px
@@ -234,6 +234,7 @@ input[type=range]::-ms-fill-upper {
     text-align: center;
     transition: all 0.2s;
     font-family:'Oswald',sans-serif;
+    cursor: pointer;
 }
 
 #showlegend:hover {
@@ -255,14 +256,12 @@ input[type=range]::-ms-fill-upper {
 #inundaciones{
     position: relative;
     height: 120px;
-    top:-7px;
+    top:-35px;
     display: none;
 }
 
 #inundaciones svg{
     position: relative;
-    top:-30px;
-    background-color: ;
 }
 .text2{
     position: relative;
@@ -286,27 +285,28 @@ input[type=range]::-ms-fill-upper {
 
 #vulnerabilidad{
     position: relative;
-    top: -25px;
-    max-height:90px;
-    background-color: ;
-    padding-bottom: 10px;
+    top: -75px;
+    max-height:114px;
+    background-color:  ;
     display: none;
+    margin: 0px;
+    padding: 0px 0px 12px 0px;
+    
 }
 
 #vulnerabilidad svg{
     background-color: ;
     position: relative;
-    top:-60px;
     
 }
 #riesgo{
-    margin-top:-85px;
-     background-color: ;
+    margin-top:-100px;
+     background-color:  ;
     display: none;
 }
 #riesgo svg{
     position: relative;
-   top: -20px;
+ 
 }
 .text5{
     position: relative;
@@ -320,6 +320,8 @@ input[type=range]::-ms-fill-upper {
     background-color: #76bbff;
     font-weight: bolder;
     transition: 0.3s;
+    box-sizing: border-box;
+    cursor: pointer;
     
 }
 .btn-ley:hover{
