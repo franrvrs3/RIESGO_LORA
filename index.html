@@ -39,11 +39,21 @@
     <!--fullscreen-->
     <script type="text/javascript" src="plugins/fullscreen/controlfullscreen.js"> </script>
     <link rel="stylesheet" href="plugins/fullscreen/controlfullscreen.css">
+    <script type="text/javascript">
+    $(window).on('load', function(){
+        $('#pre-loader').addClass('complete');
+        $('#pre-loader').css("z-index", '0');
+    })
     
+</script>
 </head>
 
 <body>
 
+<div id="pre-loader">
+    <div class="loader"><span class="loader-inner"></span>
+    </div>
+</div>
 
     <div id="map">
     </div>
