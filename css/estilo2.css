@@ -1,5 +1,6 @@
 body{
     background-color: #dbdbdb;
+   
 }
 header{
     width: 100%;
@@ -73,7 +74,8 @@ footer p:nth-child(2){
     font-size: 12px;
     font-family: 'karla','serif';
     font-weight: 300;
-    top: 60px;
+    top: 50px;
+    height: 7px
 }
 
 .mySlides1, .mySlides2 {display: none
@@ -192,7 +194,7 @@ p{
     .boton_fondo{
        padding: 24px;
     }
-    
+   
 }
 @media screen and (min-height: 950px ) {
     

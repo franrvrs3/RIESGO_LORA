@@ -3,6 +3,7 @@
 
 <head>
     <title>Webmap</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -36,6 +37,9 @@
     <!--Minimap-->
     <script type="text/javascript" src="plugins/minimap/src/controlminimap.js"> </script>
     <link rel="stylesheet" href="plugins/minimap/src/controlminimap.css">
+    <!--Slider-->
+     <link rel="stylesheet" href="plugins/leaflet-slider/leaflet-slider.css">
+      <script type="text/javascript" src="plugins/leaflet-slider/leaflet-slider.js"></script>
     <!--fullscreen-->
     <script type="text/javascript" src="plugins/fullscreen/controlfullscreen.js"> </script>
     <link rel="stylesheet" href="plugins/fullscreen/controlfullscreen.css">
@@ -53,7 +57,7 @@
         <div class="loader"><span class="loader-inner"></span>
         </div>
     </div>
-
+    
     <div id="map">
     </div>
     <div id="mySidenav" class="sidenav">
@@ -166,8 +170,6 @@
         </div>
     </div>
     <div id="btncontainer"><span id="openbtn" onclick="openNav()"> &#187;</span></div>
-    <span id="image-opacity">1</span>
-    <div id="opacity-control"><input type="range" id="sldOpacity" min="0" max="1" step="0.1" value="1" /></div>
     <!--CARGA DE DATOS GEOJSON-->
     <script type="text/javascript" src="datos/inundaciones/inundacion_10.js"></script>
     <script type="text/javascript" src="datos/inundaciones/inundacion_50.js"></script>
@@ -410,6 +412,12 @@
             }
         });
 
+        
+        
+     
+
+        
+        
 
         //VULNERABILIDAD
         var constru_u_vul_500 = L.geoJSON(constru_u_vul_500, {
@@ -465,7 +473,7 @@
             style: styleRie,
             onEachFeature: RiePopup
         });
-
+        
         //VIAS
 
         var carreteras = L.geoJSON(carreteras, {
@@ -531,6 +539,35 @@
         });
 
         map.addControl(osmGeocoder);
+        
+         var slider = L.control.slider(function(value) {
+                    inundacion_10.setStyle( {
+                    opacity: this.value,
+                    fillOpacity: this.value
+                });
+            inundacion_50.setStyle( {
+                    opacity: this.value,
+                    fillOpacity: this.value
+                });
+            inundacion_100.setStyle( {
+                    opacity: this.value,
+                    fillOpacity: this.value
+                });
+            inundacion_500.setStyle( {
+                    opacity: this.value,
+                    fillOpacity: this.value
+                });
+			}, {
+    		max: 1,
+    		value: 1,
+    		step:0.1,
+    		size: '155px',
+    		orientation:'horizontal',
+    		id: 'slider1',
+            collapsed: false,
+           position: 'topright'
+		}).addTo(map);
+
 
         var miniMap = new L.Control.MiniMap(ESRI, {
             toggleDisplay: true,
@@ -593,10 +630,12 @@
             collapsed: true,
             position: 'topright',
         };
-
+        
 
         var capas = L.Control.styledLayerControl(baseLayers, overlays, options); //addTo(map); es posible tmbn
         map.addControl(capas);
+        
+      
 
         //Mostrar leyenda
 
@@ -618,9 +657,10 @@
         $("#btnRie").click(function() {
             $("#riesgo").toggle("slow");
         });
+   
 
         //OPACIDAD
-
+/*
         $('#sldOpacity').on('change', function() {
             $('#image-opacity').html(this.value);
             inundacion_10.setStyle({
@@ -641,6 +681,8 @@
             });
 
         });
+        
+        */
     </script>
 
 
