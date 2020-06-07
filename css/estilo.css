@@ -211,13 +211,15 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     top: 0px;
-    right: 5px;
+    right: 0px;
 }
 
 .info h2 {
     position: relative;
-    width: 100%;
+    padding-left: 1.5%;
     display: inline;
+    text-align: center;
+    
 }
 
 .slider{
