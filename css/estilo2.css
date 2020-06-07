@@ -151,6 +151,8 @@ footer p{
                 color: #FFF;
                 background: #0BF;
                 padding: 20px;
+                padding-left: 10px;
+                padding-right: 10px;
                 margin: 40px auto;
                 font-family: 'OpenSansBold', sans-serif;
                 font-size: 14px;
@@ -174,8 +176,14 @@ footer p{
     
     color: #FFF;
     text-decoration: none;
+    padding: 24px;
+    display: inline;
  
 }
+.boton_fondo:focus{
+    outline: none;
+}
+
 .second-content{
     position: relative;
     top:25px;
@@ -192,9 +200,20 @@ p{
 
 @media screen and (min-width: 870px ) {
     .boton_fondo{
-       padding: 24px;
+       padding: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
-   
+   .boton_fondo a{
+    
+    color: #FFF;
+    text-decoration: none;
+    padding: 24px;
+    display: inline;
+ 
+}
+    
+    
 }
 @media screen and (min-height: 950px ) {
     
