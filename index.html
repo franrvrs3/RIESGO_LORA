@@ -26,9 +26,6 @@
     <!-- Control de capas -->
     <script src="plugins/styledlayercontrol/src/styledlayercontrol.js"></script>
     <link rel="stylesheet" href="plugins/styledlayercontrol/css/styledlayercontrol.css">
-    <!-- Measure -->
-    <script src="plugins/measure/dist/leaflet-measure.es.js"></script>
-    <link rel=stylesheet href="plugins/measure/dist/leaflet-measure.css" />
     <!--Geocoder-->
     <script src="plugins/geocoder/controlosmgeocoder.js"></script>
     <link rel=stylesheet href="plugins/geocoder/controlosmgeocoder.css" />
@@ -510,19 +507,6 @@
         //ESCALA
         L.control.scale({
             imperial: false
-        }).addTo(map);
-        
-       var measureControl = new L.Control.Measure({
-            position: 'topleft',
-            primaryLengthUnit: 'meters',
-            secondaryLengthUnit: 'Kilometers',
-            primaryAreaUnit: 'sqmeters',
-            secondaryAreaUnit: undefined,
-            localization: 'es',
-            decPoint: '.',
-            thousandSep: '',
-            activeColor: '#04B404',
-            completedColor: '#58FAD0'
         }).addTo(map);
 
         var osmGeocoder = new L.Control.OSMGeocoder({
