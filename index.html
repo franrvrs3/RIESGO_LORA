@@ -23,8 +23,6 @@
     <!-- Mouse Position -->
     <link rel="stylesheet" href="plugins/mouseposition/src/mouseposition.css">
     <script src="plugins/mouseposition/src/mouseposition.js"></script>
-    <!--Imprimir -->
-    <script src="plugins/print/dist/bundle.js"></script>
     <!-- Control de capas -->
     <script src="plugins/styledlayercontrol/src/styledlayercontrol.js"></script>
     <link rel="stylesheet" href="plugins/styledlayercontrol/css/styledlayercontrol.css">
@@ -513,13 +511,8 @@
         L.control.scale({
             imperial: false
         }).addTo(map);
-        L.easyPrint({
-            title: 'Imprimir',
-            position: 'bottomleft',
-            elementsToHide: 'header'
-        }).addTo(map);
-
-        var measureControl = new L.Control.Measure({
+        
+       var measureControl = new L.Control.Measure({
             position: 'topleft',
             primaryLengthUnit: 'meters',
             secondaryLengthUnit: 'Kilometers',
